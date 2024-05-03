@@ -1,0 +1,15 @@
+{
+  "network": "arbitrum-goerli",
+  "BinaryMarketManager": {
+    "address": "0x0f7d252438BF9c3D819548A3AED23CF975c5Fc50",
+    "block": 25309330
+  },
+  "BinaryVaultManager": {
+    "address": "0x5b5544190b6F937381A539E5d15E2018674d9f11",
+    "block": 25309330
+  },
+  "OracleManager": {
+    "address": "0x914c50710D18f230666feb4c659f9640B9e84bcC",
+    "block": 25309330
+  }
+}

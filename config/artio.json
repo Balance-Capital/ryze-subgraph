@@ -1,0 +1,16 @@
+{
+    "network": "berachain-public-testnet",
+    "BinaryMarketManager": {
+      "address": "0xD95770b1e47d356a671e4E212dD767264Fb6266e",
+      "block": 60673
+    },
+    "BinaryVaultManager": {
+      "address": "0xEdC09369dCaED7a7e8618122AD93246c6CBa705f",
+      "block": 60673
+    },
+    "OracleManager": {
+      "address": "0x052a2AF198A69Be54bDA40a8670096390A229a69",
+      "block": 60673
+    }
+  }
+  

@@ -1,0 +1,16 @@
+{
+    "network": "inevm-mainnet",
+    "BinaryMarketManager": {
+      "address": "0x54C585986832220a518a6e84Cc8948003785fc31",
+      "block": 128080
+    },
+    "BinaryVaultManager": {
+      "address": "0x2C64fF621845cb5a968EBbDb7dB63A720BBcbD63",
+      "block": 128080
+    },
+    "OracleManager": {
+      "address": "0x1f177898E31e5172b4B39E86925516A05F98986e",
+      "block": 128080
+    }
+  }
+  

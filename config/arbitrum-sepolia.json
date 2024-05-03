@@ -1,0 +1,16 @@
+{
+    "network": "arbitrum-sepolia",
+    "BinaryMarketManager": {
+      "address": "0x71f4B368F6Ff7f7aD1AcC4c80017404322F70c7c",
+      "block": 1151500
+    },
+    "BinaryVaultManager": {
+      "address": "0x39C2740AA23861ae8e995D9A6Ca25409cEB39089",
+      "block": 1151500
+    },
+    "OracleManager": {
+      "address": "0xFCD072468c788F9b65B537Af0d04a13B837f5b71",
+      "block": 1151500
+    }
+  }
+  

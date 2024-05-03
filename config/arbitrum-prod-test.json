@@ -1,0 +1,16 @@
+{
+    "network": "arbitrum-one",
+    "BinaryMarketManager": {
+      "address": "0x1f177898e31e5172b4b39e86925516a05f98986e",
+      "block": 101199205
+    },
+    "BinaryVaultManager": {
+      "address": "0x4E28CEC8Ed3e02933d0EaCeBd0B3E0F102672521",
+      "block": 101199205
+    },
+    "OracleManager": {
+      "address": "0x602092f81DaBB925d5ed1c3a3ab16678146951C1",
+      "block": 101199205
+    }
+}
+  

@@ -1,0 +1,183 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: BinaryMarketManager
+    network: {{network}}
+    source:
+      address: "{{BinaryMarketManager.address}}"
+      abi: BinaryMarketManager
+      startBlock: {{BinaryMarketManager.block}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities: []
+      abis:
+        - name: BinaryMarketManager
+          file: ./abis/BinaryMarketManager.json
+        - name: BinaryMarket
+          file: ./abis/BinaryMarket.json
+      eventHandlers:
+        - event: MarketAdded(indexed address,string,string)
+          handler: handleMarketAdded
+      file: ./src/binary-market-manager.ts
+  - kind: ethereum/contract
+    name: BinaryVaultManager
+    network: {{network}}
+    source:
+      address: "{{BinaryVaultManager.address}}"
+      abi: BinaryVaultManager
+      startBlock: {{BinaryVaultManager.block}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities: []
+      abis:
+        - name: BinaryVaultManager
+          file: ./abis/BinaryVaultManager.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: VaultAdded(indexed address,indexed address,bool)
+          handler: handleVaultAdded
+      file: ./src/binary-vault-manager.ts
+  - kind: ethereum/contract
+    name: OracleManager
+    network: {{network}}
+    source:
+      address: "{{OracleManager.address}}"
+      abi: OracleManager
+      startBlock: {{OracleManager.block}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities: []
+      abis:
+        - name: OracleManager
+          file: ./abis/OracleManager.json
+      eventHandlers:
+        - event: OracleAdded(indexed address)
+          handler: handleOracleAdded
+      file: ./src/oracle-manager.ts
+
+templates:
+  - name: BinaryVault
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: BinaryVault
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+      abis:
+        - name: BinaryVault
+          file: ./abis/BinaryVault.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleAdminChanged
+        - event: ConfigChanged(indexed address)
+          handler: handleConfigChanged
+        - event: WhitelistMarketChanged(indexed address,bool)
+          handler: handleWhitelistMarketChanged
+        - event: LiquidityAdded(indexed address,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleLiquidityAdded
+        - event: PositionMerged(indexed address,uint256[],uint256,uint256,uint256)
+          handler: handlePositionMerged
+        - event: LiquidityRemoved(indexed address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleLiquidityRemoved
+        - event: WithdrawalRequested(indexed address,uint256,uint256,uint256)
+          handler: handleWithdrawalRequest
+        - event: WithdrawalRequestCanceled(indexed address,uint256,uint256,uint256)
+          handler: handleWithdrawalRequestCanceled
+        - event: VaultChangedFromMarket(uint256,uint256,uint256)
+          handler: handleVaultChangedFromMarket
+        - event: ManagementFeeWithdrawed()
+          handler: handleManagementFeeWithdrawed
+          
+        # These are old events
+        - event: LiquidityAdded(indexed address,uint256,uint256,uint256,uint256)
+          handler: handleLiquidityAdded
+        - event: PositionMerged(indexed address,uint256[],uint256)
+          handler: handlePositionMerged
+        - event: LiquidityRemoved(indexed address,uint256,uint256,uint256,uint256,uint256)
+          handler: handleLiquidityRemoved
+        - event: WithdrawalRequested(indexed address,uint256,uint256)
+          handler: handleWithdrawalRequest
+      file: ./src/binary-vault.ts
+  - name: BinaryMarket
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: BinaryMarket
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Market
+        - Round
+        - User
+        - Bet
+      abis:
+        - name: BinaryMarket
+          file: ./abis/BinaryMarket.json
+      eventHandlers:
+        - event: Claimed(indexed string,indexed address,uint8,indexed uint256,uint256,bool)
+          handler: handleClaimed
+        - event: EndRound(indexed uint8,indexed uint256,indexed uint256,uint256)
+          handler: handleEndRound
+        - event: LockRound(indexed uint8,indexed uint256,indexed uint256,uint256)
+          handler: handleLockRound
+        - event: Paused(address)
+          handler: handlePaused
+        - event: PositionOpened(indexed string,address,uint256,uint8,uint256,uint8)
+          handler: handlePositionOpened
+        - event: StartRound(indexed uint8,indexed uint256,uint256)
+          handler: handleStartRound
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: OracleChanged(indexed address,indexed address)
+          handler: handleOracleChanged
+        - event: MarketNameChanged(string,string)
+          handler: handleMarketNameChanged
+        - event: AdminChanged(indexed address,bool)
+          handler: handleAdminChanged
+        - event: OperatorChanged(indexed address,bool)
+          handler: handleOperatorChanged
+        - event: BetReverted(indexed uint8,indexed uint256,address[])
+          handler: handleBetReverted
+        - event: GenesisStartTimeSet(uint256,uint256)
+          handler: handleGenesisStartTimeSet
+          # New events for credits
+        - event: PositionOpened(indexed string,address,uint256,uint8,uint256,uint8,bool)
+          handler: handlePositionOpenedCredit
+      file: ./src/binary-market.ts
+  - name: Oracle
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      abi: Oracle
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Oracle
+      abis:
+        - name: Oracle
+          file: ./abis/Oracle.json
+      eventHandlers:
+        - event: WriterUpdated(indexed address,bool)
+          handler: handleOracleWriterUpdated
+        - event: WrotePrice(indexed address,indexed uint256,uint256)
+          handler: handleOraclePriceWrote
+      file: ./src/oracle.ts

@@ -1,0 +1,16 @@
+{
+    "network": "blast-mainnet",
+    "BinaryMarketManager": {
+      "address": "0x2C64fF621845cb5a968EBbDb7dB63A720BBcbD63",
+      "block": 244806
+    },
+    "BinaryVaultManager": {
+      "address": "0x4E4f7ED7c56E44Bae14a044866512d341d10e8FF",
+      "block": 244806
+    },
+    "OracleManager": {
+      "address": "0x602092f81DaBB925d5ed1c3a3ab16678146951C1",
+      "block": 244806
+    }
+  }
+  

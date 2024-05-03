@@ -1,0 +1,33 @@
+name: Deploy Binary Options Subgraph
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Get branch names
+        id: branch-name
+        uses: tj-actions/branch-names@v5.2
+
+      - name: Current branch name
+        run: |
+          echo "${{ steps.branch-name.outputs.current_branch }}"
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install dependencies
+        run: npm i
+      - name: codegen
+        run: npm run codegen
+      - name: Prepare
+        run: npm run prepare:${{ steps.branch-name.outputs.current_branch }}
+      - name: Deploy
+        run: npm run deploy:${{ steps.branch-name.outputs.current_branch }} -- --access-token ${{ secrets.SUBGRAPH_ACCESS_TOKEN }}
